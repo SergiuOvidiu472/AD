@@ -414,13 +414,12 @@ public class Main
 		srvM.insert(new Matricula(33, 11, 3));
 
 		srvX.insert(new Examen(1, Path.of("./examenes/examen.asc")));
+		srvX.insert(new Examen(2, Path.of("./holaMundo")));
 
 		for (int i = 1, j = 3; j <= 33; ++i, j += 3)
 		{
 			srvN.insert(new Nota(i, j, 1, 1));
-
 		}
-
 
 		try
 		{

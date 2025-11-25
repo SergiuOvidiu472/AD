@@ -68,6 +68,6 @@ public class Estudiante implements Pojo<Integer>
 	@Override
 	public String toString()
 	{
-		return ID + " | " + nombre;
+		return ID + " | " + nombre + " | " + primerApellido + " | " + segundoApellido;
 	}
 }

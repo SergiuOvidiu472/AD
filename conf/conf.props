@@ -1,4 +1,4 @@
-MODO=xml
+MODO=mysql
 RUTAS=./conf/archivos/rutas
 XML_ROOTS=./conf/archivos/xml_roots
 MYSQL_CONF=./conf/db/mysql/db.props
