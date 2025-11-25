@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Evaluaciones>
+    <Evaluacion>
+        <ID>1</ID>
+        <descripcion>Primer trimestre</descripcion>
+    </Evaluacion>
+    <Evaluacion>
+        <ID>2</ID>
+        <descripcion>Segundo trimestre</descripcion>
+    </Evaluacion>
+    <Evaluacion>
+        <ID>3</ID>
+        <descripcion>Tercer trimestre</descripcion>
+    </Evaluacion>
+    <Evaluacion>
+        <ID>4</ID>
+        <descripcion>Junio 1</descripcion>
+    </Evaluacion>
+    <Evaluacion>
+        <ID>5</ID>
+        <descripcion>Junio 2</descripcion>
+    </Evaluacion>
+</Evaluaciones>

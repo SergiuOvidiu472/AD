@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Asignaturas>
+    <Asignatura>
+        <ID>1</ID>
+        <nombre>Sistemas de gestión empresarial</nombre>
+        <creditos>0</creditos>
+    </Asignatura>
+    <Asignatura>
+        <ID>2</ID>
+        <nombre>Desarrollo y despliegue de aplicaciones</nombre>
+        <creditos>0</creditos>
+    </Asignatura>
+    <Asignatura>
+        <ID>3</ID>
+        <nombre>Programación multimedia y dispositivos móviles</nombre>
+        <creditos>0</creditos>
+    </Asignatura>
+</Asignaturas>

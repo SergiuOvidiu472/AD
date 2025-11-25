@@ -1,0 +1,5 @@
+DB_USER=sergio
+DB_HOST=localhost
+DB_NAME=Colegio
+DB_PASS=DB_PASSWORD
+DB_INIT=./conf/db/mysql/init.sql

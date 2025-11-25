@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Matriculas>
+    <Matricula>
+        <ID>1</ID>
+        <idEstudiante>1</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>2</ID>
+        <idEstudiante>1</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>3</ID>
+        <idEstudiante>1</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>4</ID>
+        <idEstudiante>2</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>5</ID>
+        <idEstudiante>2</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>6</ID>
+        <idEstudiante>2</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>7</ID>
+        <idEstudiante>3</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>8</ID>
+        <idEstudiante>3</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>9</ID>
+        <idEstudiante>3</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>10</ID>
+        <idEstudiante>4</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>11</ID>
+        <idEstudiante>4</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>12</ID>
+        <idEstudiante>4</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>13</ID>
+        <idEstudiante>5</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>14</ID>
+        <idEstudiante>5</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>15</ID>
+        <idEstudiante>5</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>16</ID>
+        <idEstudiante>6</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>17</ID>
+        <idEstudiante>6</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>18</ID>
+        <idEstudiante>6</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>19</ID>
+        <idEstudiante>7</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>20</ID>
+        <idEstudiante>7</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>21</ID>
+        <idEstudiante>7</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>22</ID>
+        <idEstudiante>8</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>23</ID>
+        <idEstudiante>8</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>24</ID>
+        <idEstudiante>8</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>25</ID>
+        <idEstudiante>9</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>26</ID>
+        <idEstudiante>9</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>27</ID>
+        <idEstudiante>9</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>28</ID>
+        <idEstudiante>10</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>29</ID>
+        <idEstudiante>10</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>30</ID>
+        <idEstudiante>10</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>31</ID>
+        <idEstudiante>11</idEstudiante>
+        <idAsignatura>1</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>32</ID>
+        <idEstudiante>11</idEstudiante>
+        <idAsignatura>2</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+    <Matricula>
+        <ID>33</ID>
+        <idEstudiante>11</idEstudiante>
+        <idAsignatura>3</idAsignatura>
+        <fecha>Tue Nov 25 20:54:22 CET 2025</fecha>
+    </Matricula>
+</Matriculas>
