@@ -5,6 +5,7 @@ import B_Datos.Persistencia.ArchivoXML;
 import B_Datos.Repositorio.RepoMYSQL;
 import B_Datos.Repositorio.RepoMap;
 import B_Datos.Repositorio.Repositorio;
+import C_Servicio.ConstraintException;
 import C_Servicio.Servicio;
 import C_Servicio.ServicioIML;
 
@@ -17,6 +18,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -306,6 +308,7 @@ public class Main
 
 		srvN.addConstraint("Nota mayor a cero", x -> x.getNota() < 0.0f);
 		srvN.addConstraint("Matricula-Evalución unica", (x, y) -> (x.getIdEvaluacion() == y.getIdEvaluacion()) && (x.getIdMatricula() == y.getIdMatricula()));
+		srvN.addConstraint("Solo puede haber una nota por examen, evaluacion y por matricula", (x, y) -> x.getFK().equals(y.getFK()));
 		srvN.addConstraint("Id mayor a cero", x -> x.getPK() <= 0);
 	}
 
@@ -423,7 +426,9 @@ public class Main
 
 		try
 		{
-			srvN.update(Objects::nonNull, x -> x.setNota(5.9f));
+			srvN.update(Objects::nonNull, List.of(
+				x -> x.setNota(5.9f)
+			));
 		} catch (IOException e)
 		{
 			System.out.println(e.getMessage());
@@ -440,6 +445,103 @@ public class Main
 		srvN.delete(Objects::nonNull);
 	}
 
+	static void updateTest()
+	{
+		try
+		{
+			srvN.update(x -> x.getPK() == 1, List.of(
+				x -> x.setIdMatricula(3),
+				x -> x.setIdEvaluacion(1),
+				x -> x.setIdExamen(3),
+				x -> x.setNota(-2.0f)
+			));
+		} catch (IOException | ConstraintException e)
+		{
+			System.err.println(e.getMessage());
+		}
+	}
+
+	static void multipleQueriesTest()
+	{
+		/*
+		select descripción from evaluaciones where id = (select idEvaluacion from notas where id = 1)
+		 */
+
+		List<Nota> innerQueryResult = srvN.select(x -> x.getPK() == 1);
+		List<Evaluacion> outterQuery = srvR.select(
+			ev -> innerQueryResult.parallelStream().allMatch(nota -> ev.getPK().equals(nota.getPK()))
+		);
+
+		outterQuery.forEach(x -> System.out.println(x.getDescripcion()));
+	}
+
+	static void joinsTest()
+	{
+		// select * from estudiante
+		// inner join matricula
+		// on estudiante.getPK() == matricula.getIdEstudiante();
+
+		List<Estudiante> estudiantes = srvE.select(Objects::nonNull);   // select * from estudiante
+		List<Matricula> matriculas = srvM.select(Objects::nonNull);     // select * from matricula
+
+		int maxE = estudiantes.size();
+		int maxM = matriculas.size();
+		int estudiante_I = 0;
+		int matricula_M = 0;
+
+		StringBuilder join = new StringBuilder();
+
+		while (estudiante_I < maxE)
+		{
+			Estudiante estd = estudiantes.get(estudiante_I);
+			while ((matricula_M < maxM) && (estd.getPK() == matriculas.get(matricula_M).getIdEstudiante()))
+			{
+				join.append(estd);
+				join.append("\t\t");
+				join.append(matriculas.get(matricula_M));
+				join.append("\n");
+				++matricula_M;
+			}
+			++estudiante_I;
+		}
+
+		System.out.println(join);
+	}
+
+	static void joins_2_Test()
+	{
+		// select * from estudiante
+		// inner join matricula
+		// on estudiante.getPK() == matricula.getIdEstudiante() (primerJoin)
+		// inner join asignatura
+		// on asignatura.getPK ==  primerJoin.idAsignatura
+
+		// La entidad matricula contiene los estudiantes y asignaturas
+		List<Matricula> matriculas = srvM.select(Objects::nonNull);     // select * from matricula
+
+		int i = 0;
+		StringBuilder join = new StringBuilder();
+
+		while (i < matriculas.size())
+		{
+			Matricula M = matriculas.get(i);
+
+			List<Estudiante> estd = srvE.select(x -> x.getPK() == M.getIdEstudiante());
+			List<Asignatura> asgn = srvA.select(x -> x.getPK() == M.getIdAsignatura());
+
+			join.append(estd);
+			join.append("\t\t\t\t");
+			join.append(M);
+			join.append("\t\t\t\t");
+			join.append(asgn);
+			join.append("\n");
+
+			++i;
+		}
+
+		System.out.println(join);
+	}
+
 	public static void main(String[] args)
 	{
 		iniciarServicios();
@@ -448,6 +550,9 @@ public class Main
 
 		// insertTest();
 		// clearTest();
+		// updateTest();
+		// multipleQueriesTest();
+		joins_2_Test();
 
 		salir();
 	}

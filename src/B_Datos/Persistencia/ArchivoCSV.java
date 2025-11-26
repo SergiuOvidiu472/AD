@@ -63,8 +63,9 @@ public class ArchivoCSV<PK, T extends Pojo<PK>> implements Persistencia<PK, T>
 				carga.add(tmp);
 			}
 
-		} catch (IllegalAccessException | IOException e)
+		} catch (IllegalAccessException | IOException | IndexOutOfBoundsException e)
 		{
+			// Cambios en la clase
 			throw new RuntimeException(e);
 		}
 		return carga;

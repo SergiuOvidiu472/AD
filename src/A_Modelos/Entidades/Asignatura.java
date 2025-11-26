@@ -27,6 +27,11 @@ public class Asignatura implements Pojo<Integer>
 		return ID;
 	}
 
+	public void setNombre(String nombre)
+	{
+		this.nombre = nombre;
+	}
+
 	@Override
 	public List<Object> getFK()
 	{

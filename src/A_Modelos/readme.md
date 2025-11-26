@@ -8,6 +8,11 @@ Para que un modelo sea válido, la clase debe de tener:
 
 En la capa de datos, para persistir y tratar los modelos, la API de java reflection deberá de acceder a los campos de cada objeto.<br>
 Podrá acceder a ellos o cambiarlos aunque sean privados, pero si son constantes, no.<br>
- 
 Deben de implementar la interfaz pojo para que puedan devolver su clave primaria y foráneas.<br>
-Es aconsejable modelar la base de datos o sistema y normalizar antes de crear las clases.<br>
+
+### Limitaciones
+- Se asume que las claves primarias son inmutables, (no existen setters para estos), será imposible hacer update porque la capa de servicios lo rechazará siempre
+- Una vez exportados en persistencia, no se podrán cambiar los campos o reordenarlos dentro de la clase sin borrar todos los datos anteriores 
+
+### Recomendaciones
+- Modelar la base de datos o sistema y normalizar antes de crear las clases.

@@ -59,6 +59,26 @@ public class Nota implements Pojo<Integer>
 		return idEvaluacion;
 	}
 
+	public void setIdExamen(int idExamen)
+	{
+		this.idExamen = idExamen;
+	}
+
+	public int getIdExamen()
+	{
+		return idExamen;
+	}
+
+	public void setIdMatricula(int idMatricula)
+	{
+		this.idMatricula = idMatricula;
+	}
+
+	public void setIdEvaluacion(int idEvaluacion)
+	{
+		this.idEvaluacion = idEvaluacion;
+	}
+
 	@Override
 	public List<Object> getFK()
 	{

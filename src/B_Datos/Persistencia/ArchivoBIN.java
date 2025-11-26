@@ -34,6 +34,7 @@ public class ArchivoBIN<PK, T extends Pojo<PK>> implements Persistencia<PK, T>
 			return carga;
 		} catch (IOException | ClassNotFoundException e)
 		{
+			// Cambios en la clase
 			throw new RuntimeException(e);
 		}
 	}

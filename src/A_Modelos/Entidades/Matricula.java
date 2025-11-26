@@ -31,6 +31,16 @@ public class Matricula implements Pojo<Integer>
 		return ID;
 	}
 
+	public int getIdEstudiante()
+	{
+		return idEstudiante;
+	}
+
+	public int getIdAsignatura()
+	{
+		return idAsignatura;
+	}
+
 	@Override
 	public List<Object> getFK()
 	{

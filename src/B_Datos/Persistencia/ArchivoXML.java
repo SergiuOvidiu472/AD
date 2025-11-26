@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.IllegalFormatConversionException;
 import java.util.List;
 
 public class ArchivoXML<PK, T extends Pojo<PK>> implements Persistencia<PK, T>
@@ -87,6 +88,12 @@ public class ArchivoXML<PK, T extends Pojo<PK>> implements Persistencia<PK, T>
 			}
 		} catch (IllegalAccessException e)
 		{
+			throw new RuntimeException(e.getMessage());
+		}
+		catch (NullPointerException | NumberFormatException |
+		         IllegalFormatConversionException e)
+		{
+			// Cambios en la clase
 			throw new RuntimeException(e);
 		}
 

@@ -70,50 +70,34 @@ public class ServicioIML<PK, T extends Pojo<PK>> implements Servicio<PK, T>
 			StringBuilder stb = new StringBuilder();
 			stb.append(pojo);
 			stb.append(": CONSTRAINTS ENCONTRADOS\n");
-
-			for (Predicate<T> encontrado : constraintsEncontrados)
-			{
-				stb.append(constraints.get(encontrado));
-				stb.append("\n");
-			}
-
+			constraintsEncontrados.forEach(x -> stb.append(constraints.get(x)));
 			throw new ConstraintException(stb.toString());
 		}
 	}
 
 	private void verificarUnicidad(T pojo)
 	{
-		List<T> allPojos = repo.filtrar(Objects::nonNull);
+		List<T> anyOtherPojo = repo.filtrar(x -> !x.getPK().equals(pojo.getPK()));
 		Set<BiFunction<T, T, Boolean>> uniquesConstraints = uniques.keySet();
 
-		for (T pojoIT : allPojos)
+		for (T pojoIT : anyOtherPojo)
 		{
-			Stream<BiFunction<T, T, Boolean>> stream = uniquesConstraints.parallelStream();
-			List<BiFunction<T, T, Boolean>> uniquesEncontrados = stream.filter(x -> x.apply(pojo, pojoIT)).toList();
-			List<T> equalPK = repo.filtrar(x -> x.getPK().equals(pojo.getPK()));
+			List<BiFunction<T, T, Boolean>> uniquesEncontrados
+				= uniquesConstraints.parallelStream().
+				filter(x -> x.apply(pojo, pojoIT)).toList();
 
-			boolean mismoPojo = (equalPK.size() == 1)
-				&&
-				equalPK.parallelStream().anyMatch(x -> x.getPK() == pojo.getPK());
-
-			if (!uniquesEncontrados.isEmpty() && !mismoPojo)
+			if (!uniquesEncontrados.isEmpty())
 			{
 				StringBuilder stb = new StringBuilder();
-				stb.append(pojo);
+				stb.append(pojoIT);
 				stb.append(": DUPLICIDAD\n");
-
-				for (BiFunction<T, T, Boolean> uniqueEncontrado : uniquesEncontrados)
-				{
-					stb.append(uniques.get(uniqueEncontrado));
-					stb.append("\n");
-				}
-
+				uniquesEncontrados.forEach(x -> stb.append(uniques.get(x)));
 				throw new ConstraintException(stb.toString());
 			}
 		}
 	}
 
-	private void verificarRelaciones(T pojo)
+	private void verificarEntidadesFuertes(T pojo)
 	{
 		List<Object> fks = pojo.getFK();
 
@@ -127,12 +111,23 @@ public class ServicioIML<PK, T extends Pojo<PK>> implements Servicio<PK, T>
 
 			if (srv.select(x -> x.getPK().equals(claveForanea)).isEmpty())
 			{
-				StringBuilder stb = new StringBuilder();
-				stb.append(pojo);
+				StringBuilder stb = new StringBuilder(pojo.toString());
 				stb.append(": No tiene asociación con ninguna entidad fuerte\n");
+				stb.append(claseEntidadFuerte.getSimpleName());
+				stb.append(": ID ");
+				stb.append(claveForanea);
+				stb.append(" no encontrado\n");
 				throw new ConstraintException(stb.toString());
 			}
 
+		}
+	}
+
+	private void pkSinCambiar(T pojo, T copia)
+	{
+		if (!pojo.getPK().equals(copia.getPK()))
+		{
+			throw new ConstraintException(pojo + ": Primary key inmutable\n");
 		}
 	}
 
@@ -151,13 +146,13 @@ public class ServicioIML<PK, T extends Pojo<PK>> implements Servicio<PK, T>
 	@Override
 	public void addConstraint(String nombre, Predicate<T> throwsExceptionIfTrue)
 	{
-		constraints.put(throwsExceptionIfTrue, nombre);
+		constraints.put(throwsExceptionIfTrue, nombre + "\n");
 	}
 
 	@Override
 	public void addConstraint(String nombre, BiFunction<T, T, Boolean> throwsExceptionIfTrue)
 	{
-		uniques.put(throwsExceptionIfTrue, nombre);
+		uniques.put(throwsExceptionIfTrue, nombre + "\n");
 	}
 
 	@Override
@@ -178,7 +173,7 @@ public class ServicioIML<PK, T extends Pojo<PK>> implements Servicio<PK, T>
 		pkUnique(pojo);
 		verificarConstraints(pojo);
 		verificarUnicidad(pojo);
-		verificarRelaciones(pojo);
+		verificarEntidadesFuertes(pojo);
 		repo.insertar(pojo);
 	}
 
@@ -189,7 +184,8 @@ public class ServicioIML<PK, T extends Pojo<PK>> implements Servicio<PK, T>
 	}
 
 	@Override
-	public int update(Predicate<T> query, Consumer<T> updateStatement) throws ConstraintException, IOException
+	public int update(Predicate<T> query, List<Consumer<T>> updateStatements)
+		throws ConstraintException, IOException
 	{
 		List<T> queryList = repo.filtrar(query);
 		int updates = 0;
@@ -203,8 +199,7 @@ public class ServicioIML<PK, T extends Pojo<PK>> implements Servicio<PK, T>
 				byte[] pojoEnBytes = baos.toByteArray();
 				T copia = null;
 
-				try (ByteArrayInputStream bais = new ByteArrayInputStream(pojoEnBytes);
-				     ObjectInputStream ois = new ObjectInputStream(bais))
+				try (ByteArrayInputStream bais = new ByteArrayInputStream(pojoEnBytes); ObjectInputStream ois = new ObjectInputStream(bais))
 				{
 					copia = (T) ois.readObject();
 				} catch (IOException | ClassNotFoundException e)
@@ -212,13 +207,17 @@ public class ServicioIML<PK, T extends Pojo<PK>> implements Servicio<PK, T>
 					throw new IOException(pojo + ": No se pudo actualizar");
 				}
 
+				T cloneCopia = copia; // copia = cloneCopia
 
-				updateStatement.accept(copia);
+				updateStatements.forEach(x -> x.accept(cloneCopia));
+				pojoNotNull(copia);
+				pkNotNull(copia);
+				pkSinCambiar(pojo, copia);
 				verificarConstraints(copia);
 				verificarUnicidad(copia);
-				verificarRelaciones(copia);
+				verificarEntidadesFuertes(copia);
 
-				updateStatement.accept(pojo);
+				updateStatements.forEach(x -> x.accept(pojo));
 				++updates;
 			}
 		} catch (IOException e)
@@ -236,9 +235,8 @@ public class ServicioIML<PK, T extends Pojo<PK>> implements Servicio<PK, T>
 		for (T i : deleteOnCascade)
 		{
 			for (Servicio<?, ?> srv : entidadesDebiles)
-			{
 				srv.delete(x -> x.getFK().contains(i.getPK()));
-			}
+
 			repo.delete(i.getPK());
 		}
 	}
