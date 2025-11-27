@@ -468,8 +468,11 @@ public class Main
 		 */
 
 		List<Nota> innerQueryResult = srvN.select(x -> x.getPK() == 1);
+
 		List<Evaluacion> outterQuery = srvR.select(
-			ev -> innerQueryResult.parallelStream().allMatch(nota -> ev.getPK().equals(nota.getPK()))
+			ev -> innerQueryResult.parallelStream().allMatch(
+				nota -> ev.getPK().equals(nota.getIdEvaluacion())
+			)
 		);
 
 		outterQuery.forEach(x -> System.out.println(x.getDescripcion()));
@@ -516,7 +519,7 @@ public class Main
 		// inner join asignatura
 		// on asignatura.getPK ==  primerJoin.idAsignatura
 
-		// La entidad matricula contiene los estudiantes y asignaturas
+		// La entidad matrícula contiene los estudiantes y asignaturas
 		List<Matricula> matriculas = srvM.select(Objects::nonNull);     // select * from matricula
 
 		int i = 0;

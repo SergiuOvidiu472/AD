@@ -41,9 +41,9 @@ public class RepoMYSQL<PK, T extends Pojo<PK>> implements Repositorio<PK, T>
 			tiposCamposJava.add(field.getType());
 		}
 
-		if (!nombreCamposJava.contains("ID"))
+		if (!nombreCamposJava.getFirst().equals("ID"))
 		{
-			throw new IllegalArgumentException("Esta implementación asume que todas las clases tienen la llave primaria con nombre 'ID'\n");
+			throw new IllegalArgumentException("Esta implementación asume que todas las clases tienen la llave primaria como primer atributo con nombre 'ID'\n");
 		}
 
 		insert = new StringBuilder();

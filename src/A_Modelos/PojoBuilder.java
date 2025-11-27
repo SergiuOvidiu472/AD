@@ -70,7 +70,7 @@ public class PojoBuilder<PK, T extends Pojo<PK>>
 					objctI = 0;
 				} else
 				{
-					throw new RuntimeException(classname + ": El formato de la llave foránea debe de ser de pares clase refenciada a clave forenea de la misma clase\n");
+					throw new RuntimeException(classname + ": El formato de la llave foránea debe de ser de pares clase referenciada a clave primaria de la misma clase\n");
 				}
 			}
 

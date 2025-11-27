@@ -13,6 +13,7 @@ Deben de implementar la interfaz pojo para que puedan devolver su clave primaria
 ### Limitaciones
 - Se asume que las claves primarias son inmutables, (no existen setters para estos), será imposible hacer update porque la capa de servicios lo rechazará siempre
 - Una vez exportados en persistencia, no se podrán cambiar los campos o reordenarlos dentro de la clase sin borrar todos los datos anteriores 
+- Solo hay una implementación para mysql, que requiere tener la clave primaria como el primer atributo de la clase llamado "ID"
 
 ### Recomendaciones
 - Modelar la base de datos o sistema y normalizar antes de crear las clases.

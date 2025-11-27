@@ -9,6 +9,8 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.IllegalFormatConversionException;
+import java.util.IllegalFormatException;
 import java.util.List;
 
 public class ArchivoCSV<PK, T extends Pojo<PK>> implements Persistencia<PK, T>
@@ -63,10 +65,14 @@ public class ArchivoCSV<PK, T extends Pojo<PK>> implements Persistencia<PK, T>
 				carga.add(tmp);
 			}
 
-		} catch (IllegalAccessException | IOException | IndexOutOfBoundsException e)
+		} catch (IllegalAccessException | IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch (IndexOutOfBoundsException | NumberFormatException | IllegalFormatException e)
 		{
 			// Cambios en la clase
-			throw new RuntimeException(e);
+			throw new RuntimeException(e.getMessage());
 		}
 		return carga;
 	}
